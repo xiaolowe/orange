@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="news.race">
+	<select id="news.race.selectPageList" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="hashMap">
+		SELECT t.id, t.title, t.author, t.keyWord,
+		t.digest, t.bannerImg, t.sltImg, t.num, t.znum,
+		t.state, t.recommend, t.stick,
+		t.createTime, t.updateTime, t.publishTime, 
+		t.createAccount, t.updateAccount, t.publishAccount
+		FROM
+		t_news_race t
+		where 1=1
+		<if test="title!=null and title!=''">
+			and t.title like CONCAT('%','${title}','%' )
+		</if>
+		<if test="author!=null and author!=''">
+			and t.author like CONCAT('%','${author}','%' )
+		</if>
+		<if test="state!=null and state!=''">
+			and t.state =#{state}
+		</if>
+		<if test="recommend!=null and recommend!=''">
+			and t.recommend=#{recommend}
+		</if>
+		<if test="stick!=null and stick!=''">
+			and t.stick=#{stick}
+		</if>
+		<if test="type!=null and type!=''">
+			and t.type=#{type}
+		</if>
+		order by t.createTime desc, t.publishTime desc, t.state desc, t.orders
+		limit #{offset},#{pageSize}
+	</select>
+	<select id="news.race.selectPageCount" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="java.lang.Integer">
+		select count(*)
+		FROM t_news_race t
+		where 1=1
+		<if test="title!=null and title!=''">
+			and t.title like CONCAT('%','${title}','%' )
+		</if>
+		<if test="author!=null and author!=''">
+			and t.author like CONCAT('%','${author}','%' )
+		</if>
+		<if test="state!=null and state!=''">
+			and t.state =#{state}
+		</if>
+		<if test="recommend!=null and recommend!=''">
+			and t.recommend=#{recommend}
+		</if>
+		<if test="stick!=null and stick!=''">
+			and t.stick=#{stick}
+		</if>
+		<if test="type!=null and type!=''">
+			and t.type=#{type}
+		</if>
+	</select>
+	
+	<select id="news.race.selectList" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="hashMap">
+		SELECT t.id, t.title, t.author, t.digest, t.keyWord,t.state, t.sltImg
+		FROM
+		t_news_race t
+		where 1=1
+		<if test="state!=null and state!=''">
+			and t.state =#{state}
+		</if>
+		order by  t.stick, t.recommend, t.publishTime desc 
+		limit 0,4
+	</select>
+
+	<select id="news.race.selectOne" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="com.orange.news.entity.RaceEntity">
+		SELECT t.id, t.title, t.author, t.keyWord,
+		t.digest, t.bannerImg, t.sltImg, t.num, t.znum,
+		t.state, t.recommend, t.stick,
+		t.createTime, t.updateTime, t.publishTime, 
+		t.createAccount, t.updateAccount, t.publishAccount
+		FROM t_news_race t
+		WHERE 1=1
+		<if test="id!=null">
+			and t.id=#{id}
+		</if>
+		<if test="type!=null and type!=''">
+			and t.type=#{type}
+		</if>
+	</select>
+	
+	<select id="news.race.selectPreBy" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="com.orange.news.entity.RaceEntity">
+		SELECT t.id, t.title
+		FROM
+		t_news_race t
+		where 1=1
+		and t.id  &gt;  #{id}
+		<if test="state!=null and state!=''">
+			and t.state =#{state}
+		</if>
+		order by t.id
+		limit 1
+		</select>
+		
+		<select id="news.race.selectNextBy" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="com.orange.news.entity.RaceEntity">
+		SELECT t.id, t.title
+		FROM
+		t_news_race t
+		where 1=1
+		and t.id  &lt;  #{id}
+		<if test="state!=null and state!=''">
+			and t.state =#{state}
+		</if>
+		order by  t.id desc
+		limit 1
+	</select>
+
+	<insert id="news.race.insert" parameterType="com.orange.news.entity.RaceEntity"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_news_race (
+		id
+		<if test="title!=null and title!=''">
+			,title
+		</if>
+		<if test="author!=null and author!=''">
+			,author
+		</if>
+		<if test="content!=null and content!=''">
+			,content
+		</if>
+		<if test="state!=null and state!=''">
+			,state
+		</if>
+		,createtime
+		<if test="keyWord!=null and keyWord!=''">
+			,keyWord
+		</if>
+		<if test="digest!=null and digest!=''">
+			,digest
+		</if>
+		<if test="recommend!=null and recommend!=''">
+			,recommend
+		</if>
+		<if test="bannerImg!=null and bannerImg!=''">
+			,bannerImg
+		</if>
+		<if test="sltImg!=null and sltImg!=''">
+			,sltImg
+		</if>
+		<if test="stick!=null and stick!=''">
+			,stick
+		</if>
+		<if test="num!=null">
+			,num
+		</if>
+		<if test="znum!=null">
+			,znum
+		</if>
+		<if test="favnum!=null">
+			,favnum
+		</if>
+		<if test="cnum!=null">
+			,cnum
+		</if>
+		<if test="orders!=null">
+			,orders
+		</if>
+		<if test="createAccount!=null and createAccount!=''">
+			,createAccount
+		</if>
+		<if test="type!=null and type!=''">
+			,type
+		</if>
+		) values(
+		id
+		<if test="title!=null and title!=''">
+			,#{title}
+		</if>
+		<if test="author!=null and author!=''">
+			,#{author}
+		</if>
+		<if test="content!=null and content!=''">
+			,#{content}
+		</if>
+		<if test="state!=null and state!=''">
+			,#{state}
+		</if>
+		,now()
+		<if test="keyWord!=null and keyWord!=''">
+			,#{keyWord}
+		</if>
+		<if test="digest!=null and digest!=''">
+			,#{digest}
+		</if>
+		<if test="recommend!=null and recommend!=''">
+			,#{recommend}
+		</if>
+		<if test="bannerImg!=null and bannerImg!=''">
+			,#{bannerImg}
+		</if>
+		<if test="sltImg!=null and sltImg!=''">
+			,#{sltImg}
+		</if>
+		<if test="stick!=null and stick!=''">
+			,#{stick}
+		</if>
+		<if test="num!=null">
+			,#{num}
+		</if>
+		<if test="znum!=null">
+			,#{znum}
+		</if>
+		<if test="favnum!=null">
+			,#{favnum}
+		</if>
+		<if test="cnum!=null">
+			,#{cnum}
+		</if>
+		<if test="orders!=null">
+			,#{orders}
+		</if>
+		<if test="createAccount!=null and createAccount!=''">
+			,#{createAccount}
+		</if>
+		<if test="type!=null and type!=''">
+			,#{type}
+		</if>
+		)
+	</insert>
+
+	<update id="news.race.update" parameterType="com.orange.news.entity.RaceEntity">
+		update t_news_race set id=#{id}
+		<if test="title!=null and title!=''">
+			,title=#{title}
+		</if>
+		<if test="author!=null and author!=''">
+			,author=#{author}
+		</if>
+		<if test="content!=null and content!=''">
+			,content=#{content}
+		</if>
+		<if test="state!=null and state!=''">
+			,state=#{state}
+		</if>
+		<if test="keyWord!=null and keyWord!=''">
+			,keyWord=#{keyWord}
+		</if>
+		<if test="digest!=null and digest!=''">
+			,digest=#{digest}
+		</if>
+		<if test="recommend!=null and recommend!=''">
+			,recommend=#{recommend}
+		</if>
+		<if test="bannerImg!=null and bannerImg!=''">
+			,bannerImg=#{bannerImg}
+		</if>
+		<if test="sltImg!=null and sltImg!=''">
+			,sltImg=#{sltImg}
+		</if>
+		<if test="stick!=null and stick!=''">
+			,stick=#{stick}
+		</if>
+		<if test="orders!=null and orders!=''">
+			,orders=#{orders}
+		</if>
+		<if test="num!=null">
+			,num=#{num}
+		</if>
+		<if test="znum!=null">
+			,znum=#{znum}
+		</if>
+		<if test="favnum!=null">
+			,favnum=#{favnum}
+		</if>
+		<if test="cnum!=null">
+			,cnum=#{cnum}
+		</if>
+		<if test="updateAccount!=null and updateAccount!=''">
+			,updateAccount=#{updateAccount}
+			,updateTime=now()
+		</if>
+		<if test="publishAccount!=null and publishAccount!=''">
+			,publishAccount=#{publishAccount}
+		</if>
+		<if test="publishTime!=null and publishTime!=''">
+			,publishTime=#{publishTime}
+		</if>
+		<if test="publishTime==null or publishTime==''">
+			,publishTime=now()
+		</if>
+		<if test="type!=null and type!=''">
+			,type=#{type}
+		</if>
+		where id=#{id}
+	</update>
+
+	<delete id="news.race.delete" parameterType="com.orange.news.entity.RaceEntity">
+		delete from
+		t_news_race where id=#{id}
+	</delete>
+
+	<select id="news.race.selectCount" parameterType="com.orange.news.entity.RaceEntity"
+		resultType="int">
+		SELECT count(*) FROM t_news_race t where id=#{id}
+	</select>
+
+	<select id="news.race.selectById" parameterType="string"
+		resultType="com.orange.news.entity.RaceEntity">
+		SELECT t.* FROM t_news_race t where id=#{id}
+	</select>
+
+	<delete id="news.race.deleteById" parameterType="int">
+		delete from
+		t_news_race
+		where id=#{id}
+	</delete>
+
+
+</mapper>  

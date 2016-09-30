@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="orange"
+  id="myeclipse.1449047735714"
+  context-root="/iph"
+  j2ee-spec="5.0"
+  archive="iph.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

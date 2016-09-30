@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="orange">
+        <wb-resource deploy-path="/" source-path="/WebRoot"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/core"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/cas"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/news"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/utils"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/statics"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/front"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/site"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/race"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/wxpay"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/component"/>
+        <property name="context-root" value="/orange"/>
+        <property name="java-output-path" value="/orange/WebRoot/WEB-INF/classes"/>
+    </wb-module>
+</project-modules>

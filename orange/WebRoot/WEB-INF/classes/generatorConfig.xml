@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+  <classPathEntry location="D:/soft/workspace/orange/WebRoot/WEB-INF/lib/mysql-connector-java-5.0.8.jar" />
+  
+  <context id="context1">
+    <jdbcConnection connectionURL="jdbc:mysql://192.168.109.111:3306/orange_db_iph" driverClass="com.mysql.jdbc.Driver" password="pass" userId="root" />
+    <javaModelGenerator targetPackage="com.orange.mybatis" targetProject="orange" />
+    <sqlMapGenerator targetPackage="com.orange.mybatis" targetProject="orange" />
+    <table schema="orange_db_iph" tableName="t_race_group">
+    </table>
+  </context>
+</generatorConfiguration>

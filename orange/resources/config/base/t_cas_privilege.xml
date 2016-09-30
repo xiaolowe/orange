@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cas.privilege">
+	<select id="cas.privilege.selectList" parameterType="com.orange.cas.entity.PrivilegeEntity" resultType="com.orange.cas.entity.PrivilegeEntity">
+		select t.* from t_cas_privilege t 
+		where 1=1 
+		<if test="id!=null and id!=''">
+			and id=#{id}
+		</if>
+		<if test="rid!=null and rid!=''">
+			and rid=#{rid}
+		</if>
+		<if test="mid!=null and mid!=''">
+			and mid=#{mid}
+		</if>
+	</select>
+	<insert id="cas.privilege.insert" parameterType="com.orange.cas.entity.PrivilegeEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_cas_privilege (id,rid,mid) values (id,#{rid},#{mid})
+	</insert>
+	<update id="cas.privilege.update" parameterType="com.orange.cas.entity.PrivilegeEntity">
+		update t_cas_privilege set id=#{id}
+		<if test="rid!=null and rid!=''">
+			,rid=#{rid}
+		</if>
+		<if test="mid!=null and mid!=''">
+			,mid=#{mid}
+		</if>
+	</update>
+	<delete id="cas.privilege.delete" parameterType="com.orange.cas.entity.PrivilegeEntity">
+		delete from t_cas_privilege where 1=1 
+		<if test="id!=null and id!=''">
+			and id=#{id}
+		</if>
+		<if test="rid!=null and rid!=''">
+			and rid=#{rid}
+		</if>
+		<if test="mid!=null and mid!=''">
+			and mid=#{mid}
+		</if>
+	</delete>
+</mapper>  

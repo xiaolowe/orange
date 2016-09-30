@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
+<urlrewrite>
+	<!-- 后台登录 -->
+	<rule>
+        <from>/admin</from>
+        <to>/cas/user/login</to>
+    </rule>
+
+	<!-- 前台登录 -->
+    <rule>
+        <from>/index.html</from>
+        <to>/front/index</to>
+    </rule>
+    
+    <!-- 静态资源详情页 -->
+    <rule>
+        <from>/pages/([0-9]+)/([0-9]+).html</from>
+        <to>/front/pages/$1/$2</to>
+    </rule>
+    <!-- 新闻信息：资讯、新闻 -->
+    <rule>
+        <from>/news/([a-zA-Z]+)/([0-9]+).html</from>
+        <to>/front/s/$1/$2</to>
+    </rule>
+    
+    <!-- 比赛详情页 -->
+    <rule>
+        <from>/races/([a-zA-Z]+)/([0-9]+).html</from>
+        <to>/front/r/$1/$2</to>
+    </rule>
+    
+    <!-- 列表-->
+    <rule>
+        <from>/news/([a-zA-Z]+)/list.html</from>
+        <to>/front/news/$1</to>
+    </rule>
+    
+    <!-- 赛事列表-->
+    <rule>
+        <from>/races/([a-zA-Z]+)/list.html</from>
+        <to>/front/races/$1/list</to>
+    </rule>
+    
+    <!-- 赛事报名页面-->
+    <rule>
+        <from>/race/addon/([0-9]+)/([0-9]+).html</from>
+        <to>/front/race/addon/$1/$2</to>
+    </rule>
+    
+    <!-- 赛事报名详情-->
+    <rule>
+        <from>/race/addon/info/([0-9]+)/([0-9]+).html</from>
+        <to>/front/race/addon/info/$1/$2</to>
+    </rule>
+    
+    <!-- 赛事成绩查询草操作-->
+    <rule>
+        <from>/scores/check.html</from>
+        <to>/front/race/check/score</to>
+    </rule>
+    
+    <rule>
+        <from>/member/login.html</from>
+        <to>/front/m/toLogin</to>
+    </rule>
+    <rule>
+        <from>/member/login</from>
+        <to>/front/m/login</to>
+    </rule>
+    <rule>
+        <from>/member/regist</from>
+        <to>/front/m/regist</to>
+    </rule>
+     <rule>
+        <from>/member/check</from>
+        <to>/front/m/check</to>
+    </rule>
+    <rule>
+        <from>/member/home.html</from>
+        <to>/front/m/home</to>
+    </rule>
+    
+    <!-- 手机页面 Start -->
+     <rule>
+        <from>/mobile/addon/([0-9]+).html</from>
+        <to>/mobile/race/addon/$1</to>
+    </rule>
+    <!-- 赛事报名详情-->
+    <rule>
+        <from>/mobile/addon/info/([0-9]+)/([0-9]+).html</from>
+        <to>/mobile/race/addon/info/$1/$2</to>
+    </rule>
+    <rule>
+        <from>/mobile/regist.html</from>
+        <to>/mobile/m/toRegist</to>
+    </rule>
+    <rule>
+        <from>/mobile/regist</from>
+        <to>/mobile/m/regist</to>
+    </rule>
+    <rule>
+        <from>/mobile/login.html</from>
+        <to>/mobile/m/toLogin</to>
+    </rule>
+    <rule>
+        <from>/mobile/forget.html</from>
+        <to>/mobile/m/toForget</to>
+    </rule>
+    <rule>
+        <from>/mobile/login</from>
+        <to>/mobile/m/login</to>
+    </rule>
+    <rule>
+        <from>/mobile/home.html</from>
+        <to>/mobile/m/home</to>
+    </rule>
+    <rule>
+        <from>/mobile/addon.html</from>
+        <to>/mobile/m/home</to>
+    </rule>
+    <rule>
+        <from>/mobile/addon/info.html</from>
+        <to>/mobile/m/home</to>
+    </rule>
+    <!-- 手机页面 End -->
+    
+    
+    <!-- 费用支付 页面-->
+    <rule>
+        <from>/pay/([a-zA-Z]+)/([0-9]+)/([0-9]+).html</from>
+        <to>/pay/page/$1/$2/$3</to>
+    </rule>
+    <!-- 费用支付微信内 -->
+    <rule>
+        <from>/pay/([a-zA-Z]+)/h5/([0-9]+)/([0-9]+).html</from>
+        <to>/pay/h5/$1/$2/$3</to>
+    </rule>
+    
+     <!-- 费用支付 -->
+    <rule>
+        <from>/pay/prepare/([a-zA-Z]+).html</from>
+        <to>/pay/prepare/$1</to>
+    </rule>
+    <!-- 支付状态查询 -->
+    <rule>
+        <from>/pay/state/query</from>
+        <to>/pay/state/query</to>
+    </rule>
+    
+    <!-- 此优先级是最低的,直接转发 -->
+    <rule>
+        <from>/([a-zA-Z]+).ftl</from>
+        <to last="true">/$1.ftl</to>
+    </rule>
+    <!-- 此优先级是最低的,直接转发 -->
+    <!--  <rule>
+        <from>/([a-zA-Z]+).html</from>
+        <to last="true">/$1.jsp</to>
+    </rule>-->
+
+</urlrewrite>

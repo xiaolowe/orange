@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cas.user">
+	
+	<select id="cas.user.selectPageList" parameterType="com.orange.cas.entity.UserEntity" resultType="hashMap">
+		SELECT t.id,t.username,t.nickname,t.password, t.createtime ,t.mobile,t.email,
+		t.status,t.rid,(select r.role_name from t_cas_role r where r.id=t.rid) role_name
+		 FROM t_cas_user t  where 1=1  
+		<if test="id!=null and id!=''">
+			and t.id=#{id}
+		</if>
+		<if test="username!=null and username!=''">
+			and t.username like CONCAT('%','${username}','%' )
+		</if>
+		<if test="nickname!=null and nickname!=''">
+			and t.nickname like CONCAT('%','${nickname}','%' )
+		</if>
+		<if test="password!=null and password!=''">
+			and t.password=#{password} 
+		</if>
+		<if test="mobile!=null and mobile!=''">
+			and t.mobile=#{mobile} 
+		</if>
+		<if test="email!=null and email!=''">
+			and t.email=#{email} 
+		</if>
+		<if test="status!=null and status!=''">
+			and t.status= #{status}
+		</if>
+		<if test="rid!=null and rid!=''">
+			and t.rid=#{rid}
+		</if> 
+		order by id desc 
+		limit #{offset},#{pageSize}
+	</select>
+	
+	<select id="cas.user.selectPageCount" parameterType="com.orange.cas.entity.UserEntity" resultType="java.lang.Integer">
+		select count(*) from (
+				SELECT t.id,t.username,t.password,t.createtime,t.mobile,t.email,
+				t.status,t.rid,(select r.role_name from t_cas_role r where r.id=t.rid) role_name
+				 FROM t_cas_user t  where 1=1  
+				<if test="id!=null and id!=''">
+					and t.id=#{id}
+				</if>
+				<if test="username!=null and username!=''">
+					and t.username like CONCAT('%','${username}','%' )
+				</if>
+				<if test="nickname!=null and nickname!=''">
+					and t.nickname like CONCAT('%','${nickname}','%' )
+				</if>
+				<if test="password!=null and password!=''">
+					and t.password=#{password} 
+				</if>
+				<if test="mobile!=null and mobile!=''">
+					and t.mobile=#{mobile} 
+				</if>
+				<if test="email!=null and email!=''">
+					and t.email=#{email} 
+				</if>
+				<if test="status!=null and status!=''">
+					and t.status= #{status}
+				</if>
+				<if test="rid!=null and rid!=''">
+					and t.rid=#{rid}
+				</if>  
+		) a
+	</select>
+	
+	<select id="cas.user.selectOne" parameterType="com.orange.cas.entity.UserEntity" resultType="com.orange.cas.entity.UserEntity">
+		SELECT t.id,t.username,t.nickname,t.password,t.createtime,t.mobile,t.email,
+		(select role_dbPrivilege from t_cas_role r where r.id=t.rid) role_dbPrivilege,
+		t.status,t.rid FROM t_cas_user t  where 1=1  
+				<if test="id!=null and id!=''">
+					and t.id=#{id}
+				</if>
+				<if test="username!=null and username!=''">
+					and t.username =#{username}
+				</if>
+				<if test="nickname!=null and nickname!=''">
+					and t.nickname = #{nickname}
+				</if>
+				<if test="password!=null and password!=''">
+					and t.password=#{password} 
+				</if>
+				<if test="mobile!=null and mobile!=''">
+					and t.mobile=#{mobile} 
+				</if>
+				<if test="email!=null and email!=''">
+					and t.email=#{email} 
+				</if>
+				<if test="status!=null and status!=''">
+					and t.status= #{status}
+				</if>
+				<if test="rid!=null and rid!=''">
+					and t.rid=#{rid}
+				</if>    
+	</select>
+	
+	<insert id="cas.user.insert" parameterType="com.orange.cas.entity.UserEntity" useGeneratedKeys="true" 
+		keyProperty="id">
+		insert into t_cas_user (id,username,password,createtime,createAccount,status,rid,nickname,mobile,email)
+		 values (id,#{username},#{password},now(),#{createAccount},#{status},#{rid},#{nickname},#{mobile},#{email})
+	</insert>
+	
+	<update id="cas.user.update" parameterType="com.orange.cas.entity.UserEntity">
+		update t_cas_user set id=#{id},updatetime=now(),updateAccount=#{updateAccount}
+		<if test="username!=null">
+			,username=#{username}
+		</if>
+		<if test="password!=null">
+			,password=#{password}
+		</if>
+		<if test="status!=null">
+			,status=#{status}
+		</if>
+		<if test="rid!=null">
+			,rid=#{rid}
+		</if>
+		<if test="nickname!=null and nickname!=''">
+			,nickname=#{nickname}
+		</if>
+		<if test="mobile!=null and mobile!=''">
+			,mobile=#{mobile}
+		</if>
+		<if test="email!=null and email!=''">
+			,email=#{email}
+		</if>
+		where id=#{id}
+	</update>
+	
+	<delete id="cas.user.delete" parameterType="com.orange.cas.entity.UserEntity">
+		delete from t_cas_user where id=#{id}
+	</delete>
+</mapper>  

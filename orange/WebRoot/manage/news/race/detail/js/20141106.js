@@ -1,0 +1,2 @@
+(function(g,i,e,a,c,h,f,b){c=new Date(),h=g.lib&&g.lib.city||g.seajs&&seajs.data.vars.city||g.city;f=""+c.getFullYear()+c.getMonth()+c.getDate();b="18";e=i.createElement("script");e.async=true;e.src="http://"+(g.location.href.indexOf('m.test')>-1?g.location.host+'/public/':'js.soufunimg.com/common_m/m_public/')+"js/wa201411"+b+".js?t="+f;a=i.getElementsByTagName("head")[0];a.appendChild(e)})(window,document);
+

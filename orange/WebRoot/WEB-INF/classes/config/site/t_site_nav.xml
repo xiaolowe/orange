@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.nav">
+	<select id="site.nav.selectList" parameterType="hashMap" resultType="hashMap">
+		SELECT m.* FROM t_site_nav m
+		
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if> 
+		group by m.id,m.pid,m.name,m.orders
+		order by m.orders
+	</select>
+	
+	
+	
+	<select id="site.nav.selectMenus" parameterType="com.orange.site.entity.NavEntity" resultType="com.orange.site.entity.NavEntity">
+		SELECT m.* FROM t_site_nav m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if> order by m.orders
+	</select>
+	
+	<select id="site.nav.getCount" parameterType="com.orange.site.entity.NavEntity" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_site_nav m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if>
+	</select>
+	
+	<select id="site.nav.selectOne" parameterType="com.orange.site.entity.NavEntity" resultType="com.orange.site.entity.NavEntity">
+		SELECT m.* FROM t_site_nav m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if>
+	</select>
+	<insert id="site.nav.insert" parameterType="com.orange.site.entity.NavEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_site_nav (id,pid,name,orders, url, isSelf, model, banner) values (id,#{pid},#{name},#{orders},#{url},#{isSelf}, #{model}, #{banner})
+	</insert>
+	<update id="site.nav.update" parameterType="com.orange.site.entity.NavEntity">
+		update t_site_nav set id=#{id}
+		<if test="pid!=null and pid!=''">
+			,pid=#{pid}
+		</if>
+		<if test="name!=null and name!=''">
+			,name=#{name}
+		</if>
+		<if test="url!=null and url!=''">
+			,url=#{url}
+		</if>
+		<if test="isSelf!=null and isSelf!=''">
+			,isSelf=#{isSelf}
+		</if>
+		<if test="model!=null and model!=''">
+			,model=#{model}
+		</if>
+		<if test="banner!=null and banner!=''">
+			,banner=#{banner}
+		</if>
+		<if test="orders!=null and orders!=''">
+			,orders=#{orders}
+		</if> 
+		where id=#{id}
+	</update>
+	<delete id="site.nav.delete" parameterType="com.orange.site.entity.NavEntity">
+		delete from t_site_nav where id=#{id}
+	</delete>
+</mapper>  

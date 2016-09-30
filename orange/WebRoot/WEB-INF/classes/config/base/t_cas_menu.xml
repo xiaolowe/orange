@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cas.menu">
+	<select id="cas.menu.selectList" parameterType="hashMap" resultType="com.orange.cas.entity.MenuEntity">
+		SELECT m.* FROM t_cas_menu m,t_cas_privilege p where m.id=p.mid 
+		<if test="rid!=null and rid!=''">
+			and p.rid=#{rid}
+		</if>
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if> 
+		group by m.id,m.pid,m.url,m.name,m.orderNum,m.type 
+		order by m.orderNum
+	</select>
+	
+	<select id="cas.menu.selectBtnMenus" parameterType="com.orange.cas.entity.MenuEntity" resultType="com.orange.cas.entity.MenuEntity">
+		SELECT m.* FROM t_cas_menu m where 1=1 
+		<if test="rid!=null and rid!=''">
+			and m.id in (SELECT p.mid FROM t_cas_privilege p WHERE rid=#{rid})
+		</if>
+		<if test="type!=null and type!=''">
+			and m.type=#{type}
+		</if>
+		
+		order by m.orderNum
+	</select>
+	
+	<select id="cas.menu.selectMenus" parameterType="com.orange.cas.entity.MenuEntity" resultType="com.orange.cas.entity.MenuEntity">
+		SELECT m.* FROM t_cas_menu m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if> order by m.orderNum
+	</select>
+	
+	<select id="cas.menu.getCount" parameterType="com.orange.cas.entity.MenuEntity" resultType="java.lang.Integer">
+		SELECT count(*) FROM t_cas_menu m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if>
+	</select>
+	
+	<select id="cas.menu.selectOne" parameterType="com.orange.cas.entity.MenuEntity" resultType="com.orange.cas.entity.MenuEntity">
+		SELECT m.* FROM t_cas_menu m where 1=1 
+		<if test="id!=null and id!=''">
+			and m.id=#{id}
+		</if>
+		<if test="pid!=null and pid!=''">
+			and m.pid=#{pid}
+		</if>
+	</select>
+	<insert id="cas.menu.insert" parameterType="com.orange.cas.entity.MenuEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_cas_menu (id,pid,url,name,orderNum,type) values (id,#{pid},#{url},#{name},#{orderNum},#{type})
+	</insert>
+	<update id="cas.menu.update" parameterType="com.orange.cas.entity.MenuEntity">
+		update t_cas_menu set id=#{id}
+		<if test="pid!=null and pid!=''">
+			,pid=#{pid}
+		</if>
+		<if test="url!=null and url!=''">
+			,url=#{url}
+		</if>
+		<if test="name!=null and name!=''">
+			,name=#{name}
+		</if>
+		<if test="orderNum!=null and orderNum!=''">
+			,orderNum=#{orderNum}
+		</if> 
+		<if test="type!=null and type!=''">
+			,type=#{type}
+		</if> 
+		where id=#{id}
+	</update>
+	<delete id="cas.menu.delete" parameterType="com.orange.cas.entity.MenuEntity">
+		delete from t_cas_menu where id=#{id}
+	</delete>
+</mapper>  

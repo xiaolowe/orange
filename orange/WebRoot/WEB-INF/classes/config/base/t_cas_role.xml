@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cas.role">
+	<select id="cas.role.selectList" parameterType="com.orange.cas.entity.RoleEntity" resultType="hashMap">
+		select t.* from t_cas_role t where 1=1 
+	</select>
+
+	<select id="cas.role.selectPageList" parameterType="com.orange.cas.entity.RoleEntity" resultType="hashMap">
+		select t.* from t_cas_role t where 1=1 
+		<if test="id!=null and id!=''">
+			and t.id=#{id}
+		</if>
+		<if test="role_name!=null and role_name!=''">
+			and t.role_name like CONCAT('%','${role_name}','%' )
+		</if>
+		<if test="status!=null and status!=''">
+			and t.status=#{status}
+		</if>
+		limit #{offset},#{pageSize}
+	</select>
+	<select id="cas.role.selectPageCount" parameterType="com.orange.cas.entity.RoleEntity" resultType="java.lang.Integer">
+		select count(*) from (select t.* from t_cas_role t where 1=1 
+		<if test="id!=null and id!=''">
+			and t.id=#{id}
+		</if>
+		<if test="role_name!=null and role_name!=''">
+			and t.role_name like CONCAT('%','${role_name}','%' )
+		</if>
+		<if test="status!=null and status!=''">
+			and t.status=#{status}
+		</if>
+		) a
+	</select>
+	<select id="cas.role.selectOne" parameterType="com.orange.cas.entity.RoleEntity" resultType="com.orange.cas.entity.RoleEntity">
+		select t.* from t_cas_role t 
+		where 1=1 
+		<if test="id!=null and id!=''">
+			and id=#{id}
+		</if>
+		<if test="role_name!=null and role_name!=''">
+			and role_name=#{role_name}
+		</if>
+		<if test="role_desc!=null and role_desc!=''">
+			and role_desc=#{role_desc}
+		</if>
+	</select>
+	<insert id="cas.role.insert" parameterType="com.orange.cas.entity.RoleEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into t_cas_role (id,role_name,role_desc,role_dbPrivilege,status) values (id,#{role_name},#{role_desc},#{role_dbPrivilege},#{status})
+	</insert>
+	<update id="cas.role.update" parameterType="com.orange.cas.entity.RoleEntity">
+		update t_cas_role set id=#{id}
+		<if test="role_name!=null and role_name!=''">
+			,role_name=#{role_name}
+		</if>
+		<if test="role_desc!=null and role_desc!=''">
+			,role_desc=#{role_desc}
+		</if> 
+		<if test="role_dbPrivilege!=null and role_dbPrivilege!=''">
+			,role_dbPrivilege=#{role_dbPrivilege}
+		</if>
+		<if test="status!=null and status!=''">
+			,status=#{status}
+		</if>
+		where id=#{id}
+	</update>
+	<delete id="cas.role.delete" parameterType="com.orange.cas.entity.RoleEntity">
+		delete from t_cas_role where id=#{id}
+	</delete>
+</mapper>  

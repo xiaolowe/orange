@@ -1,0 +1,11 @@
+.empty-placeholder{height:120px}
+.hidden {display: none !important}
+#subNav{width:100%;height:50px;background-color:#e6e6e6;margin-bottom:20px;text-align:center;}
+#subNav li{display:inline-block;}
+#subNav a{display:block;padding:0 30px;height:50px;line-height:50px;text-align:center;color:#333;font-size: 15px;}
+#subNav a:hover{text-decoration:none}
+#subNav a:hover,#subNav .adv_active a{background-color:#004f85;color:#fff}
+.fixedSubNav{position:fixed;top:0;left:0;z-index:1000}
+.race_info{font-size:15px;line-height:30px;padding:40px 0}
+.race_info img{max-width:1200px;}
+.race .title{font-size:15px;text-indent:30px;line-height: 35px;height: 35px;color:#004f85;border-bottom:2px solid #004f85;background: url(../images/menu_2.png)left no-repeat; }

@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+
+.now_join table a {
+	display: inline-block;
+	width: 80px;
+	line-height: 28px;
+	height: 32px;
+	text-align: center;
+	color: #fff;
+	background: #ed710c;
+	border-radius: 3px;
+}
+
+.now_join table a:hover {
+	background: #004f85;
+}

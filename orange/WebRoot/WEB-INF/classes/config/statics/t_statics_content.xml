@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="statics.content">
+	<select id="statics.content.selectPageList" parameterType="com.orange.statics.entity.ContentEntity"
+		resultType="hashMap">
+		SELECT t.id, t.name, t.code, t.link, t.createTime, t.updateTime, t.catelogId,
+		(SELECT name from t_statics_catelog where id=t.catelogId) as catelog 
+		FROM
+		t_statics_content t
+		where 1=1
+		<if test="name!=null and name!=''">
+			and t.name like CONCAT('%','${name}','%' )
+		</if>
+		<if test="code!=null and code!=''">
+			and code=#{code}
+		</if>
+		order by t.orders, t.createTime desc
+		limit #{offset},#{pageSize}
+	</select>
+	<select id="statics.content.selectPageCount" parameterType="com.orange.statics.entity.ContentEntity"
+		resultType="java.lang.Integer">
+		select count(*)
+		FROM t_statics_content t
+		where 1=1
+		<if test="name!=null and name!=''">
+			and t.name like CONCAT('%','${name}','%' )
+		</if>
+		<if test="code!=null and code!=''">
+			and code=#{code}
+		</if>
+	</select>
+	
+	<select id="statics.content.selectList" parameterType="com.orange.statics.entity.ContentEntity"
+		resultType="com.orange.statics.entity.ContentEntity">
+		SELECT t.id, t.name, t.code, t.link
+		FROM
+		t_statics_content t
+		where 1=1
+		<if test="catelogId!=null and catelogId!=''">
+			and catelogId=#{catelogId}
+		</if>
+		order by t.orders
+	</select>
+
+	<insert id="statics.content.insert" parameterType="com.orange.statics.entity.ContentEntity"
+		useGeneratedKeys="true" keyProperty="id">
+		insert into t_statics_content (
+		id,createTime
+		<if test="name!=null and name!=''">
+			,name
+		</if>
+		<if test="code!=null and code!=''">
+			,code
+		</if>
+		<if test="catelogId!=null and catelogId!=''">
+			,catelogId
+		</if>
+		<if test="content!=null and content!=''">
+			,content
+		</if>
+		<if test="link!=null and link!=''">
+			,link
+		</if>
+		<if test="orders!=null and orders!=''">
+			,orders
+		</if>
+		) values(
+		id,now()
+		<if test="name!=null and name!=''">
+			,#{name}
+		</if>
+		<if test="code!=null and code!=''">
+			,#{code}
+		</if>
+		<if test="catelogId!=null and catelogId!=''">
+			,#{catelogId}
+		</if>
+		<if test="content!=null and content!=''">
+			,#{content}
+		</if>
+		<if test="link!=null and link!=''">
+			,#{link}
+		</if>
+		<if test="orders!=null and orders!=''">
+			,#{orders}
+		</if>
+		)
+	</insert>
+
+	<update id="statics.content.update" parameterType="com.orange.statics.entity.ContentEntity">
+		update t_statics_content set id=#{id}, updateTime=now()
+		<if test="name!=null and name!=''">
+			,name=#{name}
+		</if>
+		<if test="code!=null and code!=''">
+			,code=#{code}
+		</if>
+		<if test="catelogId!=null and catelogId!=''">
+			,catelogId=#{catelogId}
+		</if>
+		<if test="content!=null and content!=''">
+			,content=#{content}
+		</if>
+		<if test="link!=null and link!=''">
+			,link=#{link}
+		</if>
+		<if test="orders!=null and orders!=''">
+			,orders=#{orders}
+		</if>
+		where id=#{id}
+	</update>
+	
+	<select id="statics.content.selectOne" parameterType="com.orange.statics.entity.ContentEntity"
+		resultType="com.orange.statics.entity.ContentEntity">
+		SELECT t.*
+		FROM t_statics_content t
+		WHERE 1=1
+		<if test="id!=null">
+			and t.id=#{id}
+		</if>
+	</select>
+
+	<select id="statics.content.selectById" parameterType="string"
+		resultType="com.orange.statics.entity.ContentEntity">
+		SELECT t.* FROM t_statics_content t where id=#{id}
+	</select>
+
+	<delete id="statics.content.delete" parameterType="com.orange.statics.entity.ContentEntity">
+		delete from
+		t_statics_content where id=#{id}
+	</delete>
+
+	<delete id="statics.content.deleteById" parameterType="int">
+		delete from
+		t_statics_content
+		where id=#{id}
+	</delete>
+
+
+</mapper>  
